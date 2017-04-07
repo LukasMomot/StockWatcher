@@ -3,24 +3,24 @@
   "command": "npm",
   "isShellCommand": true,
   "args": ["run"],
-  "showOutput": "always"
-  // "tasks": [
-  //   {
-  //     "taskName": "build",
-  //     "isBuildCommand": true
-  //   },
-  //   {
-  //     "taskName": "clean"
-  //   },
-  //   {
-  //     "taskName": "lint"
-  //   },
-  //   {
-  //     "taskName": "coverage"
-  //   },
-  //   {
-  //     "taskName": "test",
-  //     "isTestCommand": true
-  //   }
-  // ]
+  "showOutput": "always",
+  "tasks": [
+    {
+      "taskName": "build",
+      "isBuildCommand": true
+    },
+    {
+      "taskName": "clean"
+    },
+    {
+      "taskName": "lint"
+    },
+    {
+      "taskName": "coverage"
+    },
+    {
+      "taskName": "test",
+      "isTestCommand": true
+    }
+  ]
 }
