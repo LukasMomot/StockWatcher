@@ -1,4 +1,4 @@
 import { StockPrice } from "../models/stockPrice";
 export declare class StocksService {
-    getCurrentStockPrice(): StockPrice;
+    getCurrentStockPrice(symbol: string): Promise<StockPrice>;
 }

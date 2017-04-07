@@ -6,14 +6,23 @@ import * as yql from "yql";
  * StocksService
  */
 export class StocksService {
-    public getCurrentStockPrice(): StockPrice {
-        yql('select * from yahoo.finance.quote where symbol in ("YHOO","AAPL","GOOG","MSFT")', {
-            env: "store://datatables.org/alltableswithkeys",
-        })
-            .exec((error, response) => {
-                console.log(error.message);
-            });
+    public getCurrentStockPrice(symbol: string): Promise<StockPrice> {
+        const promise = new Promise<StockPrice>((resolve, reject) => {
+            yql("select * from yahoo.finance.quote where symbol in (@symbol)", {
+                env: "store://datatables.org/alltableswithkeys",
+            })
+                .setParam("symbol", symbol)
+                .exec((error, response) => {
+                    if (error) {
+                        reject(error.message);
+                    }
 
-        return new StockPrice("Vonovia", 35);
+                    const price = new StockPrice(symbol, response.query.results.quote.LastTradePriceOnly);
+                    resolve(price);
+                });
+
+        });
+
+        return promise;
     }
 }
