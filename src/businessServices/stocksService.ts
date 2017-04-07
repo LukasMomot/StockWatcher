@@ -17,7 +17,13 @@ export class StocksService {
                         reject(error.message);
                     }
 
-                    const price = new StockPrice(symbol, response.query.results.quote.LastTradePriceOnly);
+                    const price: StockPrice = {
+                        symbol,
+                        price: response.query.results.quote.LastTradePriceOnly,
+                        change: +response.query.results.quote.Change,
+                        date: new Date(),
+                    };
+
                     resolve(price);
                 });
 
