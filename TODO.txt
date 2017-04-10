@@ -1,16 +1,22 @@
 Iteration 1:
-1. Implement main entry point server.ts.
-2. Implement dummy service to get the stock data
+(ok)1. Implement main entry point server.ts.
+(ok)2. Implement dummy service to get the stock data
     2a. Integrate with yahoo (YQL)
-3. Try to debug TypeScript
+(ok)3. Try to debug TypeScript
 
 Iteration 2:
+0. Configure Github
+1. Write Rest Express Api for getting StockPrices
+2. Extend StockPrice class for new properties
+3. Try to write other methods (another yahoo tables)
+
+Iteration 3:
 1. Implement dummy data service to get and updates stocks
 2. Try to find and use some lightweight database
 
-Iteration 3:
+Iteration 4:
 1. Implement scheduler to update prices
 2. Configuration over yargs
 
-Iteration 4:
+Iteration 5:
 1. Deployment (online)
