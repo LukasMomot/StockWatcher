@@ -8,5 +8,4 @@ npm install
 npm run build
 cd lib
 node server.js
-
 ```
