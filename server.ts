@@ -1,12 +1,13 @@
+import { ApiServer } from "./src/api/apiserver";
 import { StocksService } from "./src/businessServices/stocksService";
 
-console.log("Server Started...");
+console.log("Server Starting...");
 
-const stocksSrv = new StocksService();
-stocksSrv.getCurrentStockPrice("BMW.DE")
-    .then(
-        (price) => console.log(`The Price for ${price.symbol} is ${price.price}. Change ${price.change}`),
-        (error) => console.log(error));
+const apiServer: ApiServer = new ApiServer();
+apiServer.config()
+        .startServer(5001);
+
+console.log("Server started!!!")
 
 
 

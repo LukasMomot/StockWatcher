@@ -5,7 +5,7 @@ Iteration 1:
 (ok)3. Try to debug TypeScript
 
 Iteration 2:
-0. Configure Github
+(ok) 0. Configure Github
 1. Write Rest Express Api for getting StockPrices
 2. Extend StockPrice class for new properties
 3. Try to write other methods (another yahoo tables)
