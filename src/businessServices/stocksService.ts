@@ -18,18 +18,18 @@ export class StocksService {
                     }
 
                     const stocks: StockPrice[] = [];
-                    response.query.results.quote.forEach((stock) => {
-                        const price: StockPrice = {
-                            change: +stock.Change,
-                            date: new Date(),
-                            price: stock.LastTradePriceOnly,
-                            symbol: stock.Symbol,
-                            // tslint:disable-next-line:object-literal-sort-keys
-                            name: stock.Name,
-                        };
 
-                        stocks.push(price);
-                    });
+                    // Response from Yahoo can an array or single object
+                    if (response.query.results.quote instanceof Array) {
+                        response.query.results.quote.forEach((stock) => {
+                            const stockPrice = this.buildStockItem(stock);
+                            stocks.push(stockPrice);
+                        });
+
+                    } else {
+                        const stockPrice = this.buildStockItem(response.query.results.quote);
+                        stocks.push(stockPrice);
+                    }
 
 
                     resolve(stocks);
@@ -38,5 +38,19 @@ export class StocksService {
         });
 
         return promise;
+    }
+
+    private buildStockItem(stock: any): StockPrice {
+        const stockPrice: StockPrice = {
+            change: +stock.Change,
+            date: new Date(),
+            price: stock.LastTradePriceOnly,
+            symbol: stock.Symbol,
+            // tslint:disable-next-line:object-literal-sort-keys
+            name: stock.Name,
+        };
+
+        return stockPrice;
+
     }
 }
