@@ -1,4 +1,5 @@
 import * as bodyParser from "body-parser";
+import * as cors from "cors";
 import * as express from "express";
 import { StockPriceApi } from "./stockPriceApi";
 
@@ -26,6 +27,7 @@ export class ApiServer {
     private configureMiddlewares() {
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: false }));
+        this.app.use(cors());
     }
     private configApiRoutes() {
         let router: express.Router;
