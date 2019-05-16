@@ -20,7 +20,8 @@
     "test": "npm run build && mocha --compilers ts:ts-node/register --recursive 'test/**/*-spec.ts'",
     "coverage": "nyc --reporter=text --reporter=html --reporter=lcov mocha --compilers ts:ts-node/register",
     "watch": "npm run build -- --watch",
-    "watch:test": "npm run test -- --watch"
+    "watch:test": "npm run test -- --watch",
+    "start": "node lib/server.js"
   },
   "dependencies": {
     "alphavantage": "0.0.7",
