@@ -23,7 +23,7 @@ export class StockPriceApi {
         const symbol: string = req.params.symbol;
 
         const stockServie = new StocksAVService();
-        promiseRetry({ retries: 20,  maxTimeout: 150, minTimeout: 100  }, (retry, nr) => {
+        promiseRetry({ retries: 5,  maxTimeout: 300, minTimeout: 100  }, (retry, nr) => {
             // tslint:disable-next-line:no-console
             console.log("attempt number", nr);
 
@@ -42,7 +42,8 @@ export class StockPriceApi {
                              { change: 0.05, date: "2017-08-28T19:05:27.121Z", price: "84.43", symbol: "MSFT", name: "Microsoft Corp." },
                              // tslint:disable-next-line:max-line-length
                              { change: -0.85, date: "2017-08-28T19:05:27.121Z", price: "174.76", symbol: "AAPL", name: "Apple Inc." },
-                             { change: -2.4, date: "2017-08-28T19:05:27.121Z", price: "209.25", symbol: "NVDA", name: "Nvidia Corporation" }];
+                             { change: -2.4, date: "2017-08-28T19:05:27.121Z", price: "209.25", symbol: "NVDA",
+                                name: "Nvidia Corporation" }];
 
         // TODO: Mock-Data done for Yahoo finance problems
         res.send(fallbackData);

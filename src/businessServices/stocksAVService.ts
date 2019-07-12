@@ -30,6 +30,7 @@ export class StocksAVService {
                         currentPrice = _.toNumber(priceEntry["4. close"]);
                     } catch (error) {
                         console.log(error);
+                        reject(error);
                     } finally {
                         stock = {
                             symbol,

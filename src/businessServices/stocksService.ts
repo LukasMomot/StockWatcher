@@ -31,7 +31,6 @@ export class StocksService {
                         stocks.push(stockPrice);
                     }
 
-
                     return resolve(stocks);
                 });
 
