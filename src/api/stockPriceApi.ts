@@ -36,8 +36,7 @@ export class StockPriceApi {
                              { change: -2.4, date: "2017-08-28T19:05:27.121Z", price: "209.25", symbol: "NVDA",
                                 name: "Nvidia Corporation" }];
 
-        // IMPORTANT: Data is mocked because Alphavanted has a limit of 5 requests per minute.
-        // So we are sending just mocked data
+        // IMPORTANT: Data is mocked because Alphavanted has a limit of 5 requests per minute. So we are sending just mocked data
         res.send(fallbackData);
     }
 }
