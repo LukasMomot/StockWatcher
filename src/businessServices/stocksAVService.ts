@@ -21,7 +21,9 @@ export class StocksAVService {
                     let stock: StockPrice;
 
                     try {
-                        if (response && response.body && !response.body.Note) {
+                        // Alphavantage is unfurtonatelly sending always code 200 even if there was an error
+                        // So we need to always check the body
+                        if (response && response.body && !response.body.Note && !response.body["Error Message"]) {
                             const first = Object.keys(response.body["Time Series (1min)"])[0];
                             const priceEntry = response.body["Time Series (1min)"][first];
                             currentPrice = _.toNumber(priceEntry["4. close"]);
