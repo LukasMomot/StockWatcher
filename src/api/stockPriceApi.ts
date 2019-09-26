@@ -1,3 +1,4 @@
+import { middleware as cache } from "apicache";
 import { NextFunction, Request, Response, Router } from "express";
 import * as promiseRetry from "promise-retry";
 import { StocksAVService } from "../businessServices/stocksAVService";
@@ -7,7 +8,8 @@ import { StocksAVService } from "../businessServices/stocksAVService";
  */
 export class StockPriceApi {
     public static configureRoutes(router: Router) {
-        router.get("/stockprice/:symbol", (req: Request, res: Response, next: NextFunction) => {
+        // Use caching to prevent too many calls to exteranl API
+        router.get("/stockprice/:symbol", cache("1 minute"), (req: Request, res: Response, next: NextFunction) => {
             new StockPriceApi().getStockPrice(req, res, next);
         });
 
@@ -17,6 +19,7 @@ export class StockPriceApi {
     }
 
     public getStockPrice(req: Request, res: Response, next: NextFunction) {
+        console.log("Get stock executed");
         const symbol: string = req.params.symbol;
 
         const stockServie = new StocksAVService();
@@ -26,8 +29,6 @@ export class StockPriceApi {
 
             return stockServie.getCurrentStockPrice(symbol.toUpperCase()).catch(retry);
         }).then((price) => {
-            // Set http cache to 1 minute for the browsers/clients
-            res.setHeader("Cache-Control", "max-age=60");
             res.send(price);
         },
             (error) => res.status(500).send({ error }));
