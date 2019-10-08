@@ -28,7 +28,5 @@ steps:
     repository: 'stockwatcher'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
-    tags: | 
-      $(Build.BuildId)
-      latest
+    tags: latest
   displayName: 'Docker build image and push to Azure Container Registry'
