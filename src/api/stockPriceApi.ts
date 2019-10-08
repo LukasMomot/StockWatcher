@@ -9,7 +9,7 @@ import { StocksAVService } from "../businessServices/stocksAVService";
 export class StockPriceApi {
     public static configureRoutes(router: Router) {
         router.use("/", (req: Request, res: Response, next: NextFunction) => {
-            res.send("StockWatcher API is up and running... 2");
+            res.send("StockWatcher API is up and running... 3");
         });
 
         // Use caching to prevent too many calls to exteranl API
