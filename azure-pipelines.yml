@@ -25,7 +25,7 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'Azure Docker Registry'
-    repository: 'lukas.azurecr.io/stockwatcher'
+    repository: 'stockwatcher'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
   displayName: 'Docker build image and push to Azure Container Registry'
