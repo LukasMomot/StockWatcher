@@ -38,7 +38,7 @@ export class ApiServer {
 
         // Configure default route
         router.get("/", (_req: Request, res: Response, _next: NextFunction) => {
-            res.send("StockWatcher API is up and running... 3");
+            res.send("StockWatcher API is up and running... 4");
         });
 
         this.app.use(router);
