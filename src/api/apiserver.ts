@@ -1,6 +1,7 @@
 import * as bodyParser from "body-parser";
 import * as cors from "cors";
 import * as express from "express";
+import { NextFunction, Request, Response, Router } from "express";
 import { StockPriceApi } from "./stockPriceApi";
 
 /**
@@ -30,10 +31,15 @@ export class ApiServer {
         this.app.use(cors());
     }
     private configApiRoutes() {
-        let router: express.Router;
-        router = express.Router();
+        let router: Router;
+        router = Router();
 
         StockPriceApi.configureRoutes(router);
+
+        // Configure default route
+        router.get("/", (_req: Request, res: Response, _next: NextFunction) => {
+            res.send("StockWatcher API is up and running... 3");
+        });
 
         this.app.use(router);
     }

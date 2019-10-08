@@ -4,6 +4,11 @@
     "no-console": false,
     "object-literal-sort-keys": false,
     "max-line-length": false,
-    "trailing-comma": false
+    "trailing-comma": false,
+    "variable-name": {
+      "options": [
+        "allow-leading-underscore"
+      ]
+    }
   }
 }

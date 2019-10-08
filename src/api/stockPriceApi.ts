@@ -16,10 +16,6 @@ export class StockPriceApi {
         router.get("/mosttraded", (req: Request, res: Response, next: NextFunction) => {
             new StockPriceApi().getMostTraded(req, res, next);
         });
-
-        // router.use("*", (req: Request, res: Response, next: NextFunction) => {
-        //     res.send("StockWatcher API is up and running... 3");
-        // });
     }
 
     public getStockPrice(req: Request, res: Response, next: NextFunction) {
