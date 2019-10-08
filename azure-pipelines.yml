@@ -30,5 +30,5 @@ steps:
     Dockerfile: '**/Dockerfile'
     tags: |
       latest
-      $(Build.BuildId)
+    # $(Build.BuildId)
   displayName: 'Docker build image and push to Azure Container Registry'
