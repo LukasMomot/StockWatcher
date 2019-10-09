@@ -1,8 +1,5 @@
-# Node.js
-
-# Build a general Node.js project with npm.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+# Build docker container with StockWatcher API
+# Build of the source code happens as 'multi-stage' step in the image build process
 
 trigger:
 - master
@@ -11,17 +8,6 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-# TODO: App is build in the container itself
-# - task: NodeTool@0
-#   inputs:
-#     versionSpec: '10.x'
-#   displayName: 'Install Node.js'
-
-# - script: |
-#     npm install
-#     npm run build
-#   displayName: 'npm install and build'
-
 - task: Docker@2
   inputs:
     containerRegistry: 'Azure Docker Registry'
