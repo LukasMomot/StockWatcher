@@ -1,4 +1,3 @@
-import * as alpha from "alphavantage";
 import * as _ from "lodash";
 import * as unirest from "unirest";
 
@@ -6,35 +5,40 @@ import { StockPrice } from "../models/stockPrice";
 
 export class StocksAVService {
 
-    public getCurrentStockPrice(symbol: string): Promise<any> {
+    public getCurrentStockPrice(symbol: string): Promise<StockPrice> {
+        const apiKey = this.getApiKey();
         const promise = new Promise<any>((resolve, reject) => {
             unirest.get("https://www.alphavantage.co/query")
                 .query({
                     function: "TIME_SERIES_INTRADAY",
-                    // tslint:disable-next-line:object-literal-sort-keys
                     datatype: "json",
                     interval: "1min",
-                    apikey: "PBYQ6D6Y5P0OXD2I",
+                    apikey: apiKey,
                     symbol,
                 }).end((response) => {
                     console.log(response.request.href);
-
-                    // get last price entry
                     let currentPrice = 0;
                     let stock: StockPrice;
 
                     try {
-                        // TODO: Improve this code (done quickly after suddenly Yahoo finance was switched off)
-                        const first = Object.keys(response.body["Time Series (1min)"])[0];
-                        const priceEntry = response.body["Time Series (1min)"][first];
-                        currentPrice = _.toNumber(priceEntry["4. close"]);
+                        // Alphavantage is unfurtonatelly sending always code 200 even if there was an error
+                        // So we need to always check the body
+                        if (response && response.body && !response.body.Note && !response.body["Error Message"]) {
+                            const first = Object.keys(response.body["Time Series (1min)"])[0];
+                            const priceEntry = response.body["Time Series (1min)"][first];
+                            currentPrice = _.toNumber(priceEntry["4. close"]);
+                        } else if (response && response.body.Note) {
+                            // There is a limit of calling alphavanted API
+                            console.error(response.body.Note);
+                            // reject(response.body.Note);
+                        }
                     } catch (error) {
                         console.log(error);
+                        reject(error);
                     } finally {
                         stock = {
                             symbol,
                             price: currentPrice,
-                            // tslint:disable-next-line:object-literal-sort-keys
                             date: new Date(),
                             name: symbol,
                             change: 0,
@@ -42,10 +46,22 @@ export class StocksAVService {
                     }
 
                     return resolve(stock);
-
                 });
         });
 
         return promise;
+    }
+
+    private getApiKey() {
+        const apiKeys = [
+            "PBYQ6D6Y5P0OXD2I",
+            "3A5UT2Y4E5GCDWX8",
+            "G8RHU88DI33Z38FQ",
+            "DBMUMV9S7DUA6O30",
+            "2QZNT6MSWOAUNOOX"
+        ];
+        const keyIndex = _.random(0, apiKeys.length - 1);
+
+        return apiKeys[keyIndex];
     }
 }

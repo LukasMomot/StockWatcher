@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: stockwatcher
+  labels:
+    app: stockwatcher
+spec:
+  containers:
+    - name: stockwatcher
+      image: stockwatcher
+      imagePullPolicy: IfNotPresent
+      resources: {}
+      ports:
+        - containerPort: 5001
+
+# kubectl apply -f stockwatcher.pod.yml
+# kubectl port-forward [name-of-pod] [external-port]:[internal-port]

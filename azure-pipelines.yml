@@ -1,0 +1,20 @@
+# Build docker container with StockWatcher API
+# Build of the source code happens as 'multi-stage' step in the image build process
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: Docker@2
+  inputs:
+    containerRegistry: 'Azure Docker Registry'
+    repository: 'stockwatcher'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+    tags: |
+      latest
+    # $(Build.BuildId)
+  displayName: 'Docker build image and push to Azure Container Registry'

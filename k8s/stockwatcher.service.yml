@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: stockwatcher
+spec:
+  type: LoadBalancer
+  selector:
+    app: stockwatcher
+  ports:
+  - port: 5006
+    targetPort: 5001
